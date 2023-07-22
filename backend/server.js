@@ -3,7 +3,7 @@ const express = require("express");
 require("dotenv").config();
 const app = express();
 
-
+const { connection } = require("./config/db");
 app.use(express.json());
 
 
@@ -15,6 +15,17 @@ app.get("/", (req, res) => {
 
 
 
- app.listen(PORT, () => {
+
+const startServer = async () => {
+  try {
+    await connection;
+    console.log("connection to DB sucessfully");
+    app.listen(PORT, () => {
       console.log(`server running on port ${PORT}`);
-});
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+startServer();
+
