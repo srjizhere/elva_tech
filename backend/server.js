@@ -5,6 +5,7 @@ const app = express();
 
 const { connection } = require("./config/db");
 const { CompanyModel } = require("./model/company.model");
+const { companyRouter } = require("./routes/company.route");
 
 
 app.use(cors());
@@ -15,6 +16,8 @@ const PORT = process.env.PORT || 7000;
 app.get("/", (req, res) => {
   res.send({ msg: "this is base route for Eleva-Tech assignment" });
 });
+
+app.use('/api/company',companyRouter);
 
 
 const startServer = async () => {
